@@ -10,16 +10,12 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public User getUser(@PathVariable String id) {
+        return userService.getUserById(Long.valueOf(id));
     }
 
     @GetMapping
@@ -33,12 +29,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public User updateUser(@PathVariable String id, @RequestBody User user) {
+        return userService.updateUser(Long.valueOf(id), user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteUser(@PathVariable String id) {
+        userService.deleteUser(Long.valueOf(id));
     }
 }
